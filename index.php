@@ -17,8 +17,51 @@ error_reporting(E_ALL);
         'can_swim' => true
     ];
     
-    $employees = [$employee1, $employee2];
+    $employee3 = [
+        'age' => 43, 
+        'weight' => 112.35, 
+        'name' => 'Hank',
+        'surname' => 'Jobbs',
+        'can_swim' => false
+    ];
     
+    
+    $employees = [$employee1, $employee2, $employee3];
+    
+    
+    
+    
+    print_r($employees);
+    for ($i = 1; ;$i++ ) {
+       
+       if ($i % 2) {
+           continue;
+       }
+       
+       if ($i > 10) {
+           break;
+       }
+       
+       echo $i . '<hr>';
+       
+    }
+        echo $i;
+        
+    
+    
+   
+    
+    // $a = -234;
+    
+    // if ($a > 0) {
+    //     echo 'Positive';
+    // } elseif (!$a) {
+    //     echo 'zero';
+    // } else {
+    //     echo 'negative';
+    // }
+    
+  
 ?>
 
 <!doctype html>
@@ -30,7 +73,7 @@ error_reporting(E_ALL);
 <body>
      
     
-    <table border="1">
+    <table border="1" cellspacing="0">
         <tr>
             <th>Name</th>
             <th>Surname</th>
@@ -38,20 +81,16 @@ error_reporting(E_ALL);
             <th>Weight</th>
             <th>Can swim</th>
         </tr>
-        <tr>
-            <td><?=$employees[0]['name'] ?></td>
-            <td><?=$employees[0]['surname'] ?></td>
-            <td><?=$employees[0]['age'] ?></td>
-            <td><?=$employees[0]['weight'] ?></td>
-            <td><?=$employees[0]['can_swim'] ?></td>
-        </tr>
-        <tr>
-            <td><?=$employees[1]['name'] ?></td>
-            <td><?=$employees[1]['surname'] ?></td>
-            <td><?=$employees[1]['age'] ?></td>
-            <td><?=$employees[1]['weight'] ?></td>
-            <td><?=$employees[1]['can_swim'] ?></td>
-        </tr>
+        <?php foreach ($employees as $employee) : ?>
+            <tr>
+                <td><?=$employee['name'] ?></td>
+                <td><?=$employee['surname'] ?></td>
+                <td><?=$employee['age'] ?></td>
+                <td><?=$employee['weight'] ?></td>
+                <td><?=$employee['can_swim'] ? 'Yes' : 'No' ?></td>
+            </tr>
+        <?php endforeach; ?>
+
     </table>
     
     <hr>
