@@ -1,24 +1,24 @@
 <?php
 error_reporting(E_ALL);
-    $age = 61;
-    $weight = 75.35;
-    $name = 'Mike';
-    $surname = ' Johnson';
-    $canSwim = false;
-    //$x = null;
+
+    $employee1 = array(
+        'age' => 61, 
+        'weight' => 75.35, 
+        'name' => 'Mike',
+        'surname' => 'Johnson',
+        'can_swim' => false
+    );
     
-    $a = & $b;
+    $employee2 = [
+        'age' => 34, 
+        'weight' => 70.35, 
+        'name' => 'Steve',
+        'surname' => 'Anderson',
+        'can_swim' => true
+    ];
     
-    $a = '256';
-    $b = '512';
-    $a = '456';
-    var_dump($a, $b);
+    $employees = [$employee1, $employee2];
     
-    unset($a);
-    
-    
-    
-    $info = "His name is {$name}. His surname is {$surname}. He is {$age} years old.";
 ?>
 
 <!doctype html>
@@ -28,7 +28,7 @@ error_reporting(E_ALL);
     <title>PHP Document</title>
 </head>
 <body>
-    <?=$info[4] ?>    
+     
     
     <table border="1">
         <tr>
@@ -36,12 +36,21 @@ error_reporting(E_ALL);
             <th>Surname</th>
             <th>Age</th>
             <th>Weight</th>
+            <th>Can swim</th>
         </tr>
         <tr>
-            <td><?=$name ?></td>
-            <td><?=$surname ?></td>
-            <td><?=$age ?></td>
-            <td><?=$weight ?></td>
+            <td><?=$employees[0]['name'] ?></td>
+            <td><?=$employees[0]['surname'] ?></td>
+            <td><?=$employees[0]['age'] ?></td>
+            <td><?=$employees[0]['weight'] ?></td>
+            <td><?=$employees[0]['can_swim'] ?></td>
+        </tr>
+        <tr>
+            <td><?=$employees[1]['name'] ?></td>
+            <td><?=$employees[1]['surname'] ?></td>
+            <td><?=$employees[1]['age'] ?></td>
+            <td><?=$employees[1]['weight'] ?></td>
+            <td><?=$employees[1]['can_swim'] ?></td>
         </tr>
     </table>
     
