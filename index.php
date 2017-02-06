@@ -1,11 +1,22 @@
 <?php
-
+error_reporting(E_ALL);
     $age = 61;
     $weight = 75.35;
     $name = 'Mike';
     $surname = ' Johnson';
     $canSwim = false;
     //$x = null;
+    
+    $a = & $b;
+    
+    $a = '256';
+    $b = '512';
+    $a = '456';
+    var_dump($a, $b);
+    
+    unset($a);
+    
+    
     
     $info = "His name is {$name}. His surname is {$surname}. He is {$age} years old.";
 ?>
