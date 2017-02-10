@@ -7,15 +7,19 @@
 <body>
     
     <h1>Check if a number is prime number</h1>
-    
+    <h3>TODO: remove 'required'. Add php validation</h3>
     <form method='post'>
-        <input type="number" name="number" min="2" required/>
+        <input type="number" name="number" min="2"/>
         <button>Go</button>
     </form>
     
     
     <?php 
-        if ($_POST) { 
+        if ($_POST) {
+            
+            if (!is_numeric($_POST['number'])) {
+                die('not a number');
+            }
             
             $number = (int) $_POST['number'];
             $result = true;
