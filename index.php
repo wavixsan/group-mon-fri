@@ -26,42 +26,8 @@ error_reporting(E_ALL);
     ];
     
     
-    $employees = [$employee1, $employee2, $employee3];
-    
-    
-    
-    
-    print_r($employees);
-    for ($i = 1; ;$i++ ) {
-       
-       if ($i % 2) {
-           continue;
-       }
-       
-       if ($i > 10) {
-           break;
-       }
-       
-       echo $i . '<hr>';
-       
-    }
-        echo $i;
-        
-    
-    
-   
-    
-    // $a = -234;
-    
-    // if ($a > 0) {
-    //     echo 'Positive';
-    // } elseif (!$a) {
-    //     echo 'zero';
-    // } else {
-    //     echo 'negative';
-    // }
-    
-  
+    $employees = [$employee1, $employee2, $employee3, $employee1, $employee2, $employee3];
+ 
 ?>
 
 <!doctype html>
@@ -69,20 +35,29 @@ error_reporting(E_ALL);
 <head>
     <meta charset="UTF-8">
     <title>PHP Document</title>
+    <style>
+        .grey td {
+           background: #bbb; 
+        }
+    </style>
+    
 </head>
 <body>
      
     
-    <table border="1" cellspacing="0">
+    <table border="1" cellspacing="0" cellpadding='5'>
         <tr>
+            <th>Id</th>
             <th>Name</th>
             <th>Surname</th>
             <th>Age</th>
             <th>Weight</th>
             <th>Can swim</th>
         </tr>
-        <?php foreach ($employees as $employee) : ?>
-            <tr>
+        
+        <?php foreach ($employees as $key => $employee) : ?>
+            <tr <?=$key % 2 ? 'class="grey"' : '' ?> >
+                <td><?=$key?></td>
                 <td><?=$employee['name'] ?></td>
                 <td><?=$employee['surname'] ?></td>
                 <td><?=$employee['age'] ?></td>
@@ -93,13 +68,6 @@ error_reporting(E_ALL);
 
     </table>
     
-    <hr>
-    <?php
-       
-        var_dump(isset($x));
-    
-    ?>
-    
-  
+
 </body>
 </html>
