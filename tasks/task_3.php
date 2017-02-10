@@ -7,6 +7,7 @@
 <body>
     
     <h1>Random dimension table</h1>
+    <h3>Make gradients from left to right on each row</h3>
     <?php
     
         $rows = rand(1, 10);
