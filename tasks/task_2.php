@@ -1,4 +1,22 @@
 <?php 
+
+    function isPrime($number)
+    {
+        $result = true;
+        
+        if ($number == 2) {
+            $result = true;
+        } else {
+            for ($i = 2; $i < $number; $i++) {
+                if ($number % $i == 0) {
+                    $result = false;
+                    break;
+                }
+            }
+        } 
+        
+        return $result;
+    }
     
     $isFormSent = false;
 
@@ -7,6 +25,7 @@
         $isFormSent = true;
         $prime_numbers = [2, 3];
         
+        // todo: make function isValid()
         if (!is_numeric($_POST['max_number'])) {
             die('max number is not a number');
         }
@@ -14,20 +33,9 @@
         $max_number = (int) $_POST['max_number'];
         
         for ($number = 4; $number < $max_number; $number++) {
-            $result = true;
-        
-            if ($number == 2) {
-                $result = true;
-            } else {
-                for ($i = 2; $i < $number; $i++) {
-                    if ($number % $i == 0) {
-                        $result = false;
-                        break;
-                    }
-                }
-            } 
             
-            if ($result) {
+            if (isPrime($number) {
+            // if ($result) {
                $prime_numbers[] = $number; 
             }
         }
