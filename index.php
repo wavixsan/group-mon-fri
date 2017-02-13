@@ -1,6 +1,61 @@
 <?php
 error_reporting(E_ALL);
 
+function mySum($n)
+{
+    if ($n == 1) {
+        return 1;
+    }
+    
+    return mySum($n-1) + $n;
+    
+}
+echo mySum(4);die;
+// sum(n) = 1+2+...+n = sum(n-1)+n
+$s = 0;
+for ($i = 1; $i < 10; $i++) {
+    $s += $i;
+}
+echo $s;
+
+
+die;
+$if = function() {
+    echo 1;
+    echo 2;
+};
+
+function ifElse($condition, $f1, $f2) 
+{
+    if ($condition) {
+        $f1();
+    } else {
+        $f2();
+    } 
+}
+
+ifElse(-1 > 0, $if, function() {
+    echo 3;
+});
+
+die;
+
+
+
+
+
+// $test = function() {
+//     echo 1;
+// };
+
+
+// var_dump($test());
+// die();
+
+
+
+
+
 
 function addNumbers($a, $b)
 {
