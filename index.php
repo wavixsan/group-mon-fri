@@ -2,6 +2,39 @@
 error_reporting(E_ALL);
 
 
+function addNumbers($a, $b)
+{
+    $c = $a + $b;
+    
+    return $c;
+}
+
+
+echo 'test ' . addNumbers(1,2);
+
+
+die;
+
+function formattedPrint($var, $die = false)
+{
+    echo '<pre>';
+    print_r($var);
+    echo '</pre>';
+    
+    if ($die) {
+        die();
+    }
+}
+
+
+
+$function = 'formattedPrint';
+
+
+
+
+
+
 // $_GET, $_POST,  $_SERVER,
 
 
@@ -12,6 +45,8 @@ error_reporting(E_ALL);
         'surname' => 'Johnson',
         'can_swim' => false
     );
+    
+    $function($employee1, 1);
     
     $employee2 = [
         'age' => 34, 
