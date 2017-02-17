@@ -1,37 +1,36 @@
 <?php
 error_reporting(E_ALL);
 
-
-// $_GET, $_POST,  $_SERVER,
-
-
-    $employee1 = array(
-        'age' => 61, 
-        'weight' => 75.35, 
-        'name' => 'Mike',
-        'surname' => 'Johnson',
-        'can_swim' => false
+function createEmployee($age, $weight, $name, $surname, $canSwim = true) 
+{
+    return compact('age', 'weight', 'name', 'surname', 'canSwim');
+    
+    // same as compact() - please remove one of the 'return's
+    return array(
+        'age' => $age, 
+        'weight' => $weight, 
+        'name' => $name,
+        'surname' => $surname,
+        'canSwim' => $canSwim
     );
-    
-    $employee2 = [
-        'age' => 34, 
-        'weight' => 70.35, 
-        'name' => 'Steve',
-        'surname' => 'Anderson',
-        'can_swim' => true
-    ];
-    
-    $employee3 = [
-        'age' => 43, 
-        'weight' => 112.35, 
-        'name' => 'Hank',
-        'surname' => 'Jobbs',
-        'can_swim' => false
-    ];
-    
-    
-    $employees = [$employee1, $employee2, $employee3, $employee1, $employee2, $employee3];
- 
+}
+
+function canSwimReadable(array $employee)
+{
+    return $employee['canSwim'] ? 'Yes' : 'No';
+}
+
+function statusReadable($value)
+{
+    return $value ? 'Yes' : 'No';
+}
+
+$employee1 = createEmployee(61, 75.35, 'Mike', 'Johnson', false);
+$employee2 = createEmployee(34, 70.35, 'Steve', 'Anderson');
+$employee3 = createEmployee(43, 112.35, 'Hank', 'Jobbs');
+
+$employees = [$employee1, $employee2, $employee3, $employee1, $employee2, $employee3];
+
 ?>
 
 <!doctype html>
@@ -66,7 +65,7 @@ error_reporting(E_ALL);
                 <td><?=$employee['surname'] ?></td>
                 <td><?=$employee['age'] ?></td>
                 <td><?=$employee['weight'] ?></td>
-                <td><?=$employee['can_swim'] ? 'Yes' : 'No' ?></td>
+                <td><?=statusReadable($employee['canSwim']) ?></td>
             </tr>
         <?php endforeach; ?>
 
