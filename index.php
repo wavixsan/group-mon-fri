@@ -1,127 +1,36 @@
 <?php
 error_reporting(E_ALL);
 
-function mySum($n)
+function createEmployee($age, $weight, $name, $surname, $canSwim = true) 
 {
-    if ($n == 1) {
-        return 1;
-    }
+    return compact('age', 'weight', 'name', 'surname', 'canSwim');
     
-    return mySum($n-1) + $n;
-    
-}
-echo mySum(4);die;
-// sum(n) = 1+2+...+n = sum(n-1)+n
-$s = 0;
-for ($i = 1; $i < 10; $i++) {
-    $s += $i;
-}
-echo $s;
-
-
-die;
-$if = function() {
-    echo 1;
-    echo 2;
-};
-
-function ifElse($condition, $f1, $f2) 
-{
-    if ($condition) {
-        $f1();
-    } else {
-        $f2();
-    } 
-}
-
-ifElse(-1 > 0, $if, function() {
-    echo 3;
-});
-
-die;
-
-
-
-
-
-// $test = function() {
-//     echo 1;
-// };
-
-
-// var_dump($test());
-// die();
-
-
-
-
-
-
-function addNumbers($a, $b)
-{
-    $c = $a + $b;
-    
-    return $c;
-}
-
-
-echo 'test ' . addNumbers(1,2);
-
-
-die;
-
-function formattedPrint($var, $die = false)
-{
-    echo '<pre>';
-    print_r($var);
-    echo '</pre>';
-    
-    if ($die) {
-        die();
-    }
-}
-
-
-
-$function = 'formattedPrint';
-
-
-
-
-
-
-// $_GET, $_POST,  $_SERVER,
-
-
-    $employee1 = array(
-        'age' => 61, 
-        'weight' => 75.35, 
-        'name' => 'Mike',
-        'surname' => 'Johnson',
-        'can_swim' => false
+    // same as compact() - please remove one of the 'return's
+    return array(
+        'age' => $age, 
+        'weight' => $weight, 
+        'name' => $name,
+        'surname' => $surname,
+        'canSwim' => $canSwim
     );
-    
-    $function($employee1, 1);
-    
-    $employee2 = [
-        'age' => 34, 
-        'weight' => 70.35, 
-        'name' => 'Steve',
-        'surname' => 'Anderson',
-        'can_swim' => true
-    ];
-    
-    $employee3 = [
-        'age' => 43, 
-        'weight' => 112.35, 
-        'name' => 'Hank',
-        'surname' => 'Jobbs',
-        'can_swim' => false
-    ];
-    
-    
-    $employees = [$employee1, $employee2, $employee3, $employee1, $employee2, $employee3];
- 
+}
+
+function canSwimReadable(array $employee)
+{
+    return $employee['canSwim'] ? 'Yes' : 'No';
+}
+
+function statusReadable($value)
+{
+    return $value ? 'Yes' : 'No';
+}
+
+$employee1 = createEmployee(61, 75.35, 'Mike', 'Johnson', false);
+$employee2 = createEmployee(34, 70.35, 'Steve', 'Anderson');
+$employee3 = createEmployee(43, 112.35, 'Hank', 'Jobbs');
+
+$employees = [$employee1, $employee2, $employee3, $employee1, $employee2, $employee3];
+
 ?>
 
 <!doctype html>
@@ -156,7 +65,7 @@ $function = 'formattedPrint';
                 <td><?=$employee['surname'] ?></td>
                 <td><?=$employee['age'] ?></td>
                 <td><?=$employee['weight'] ?></td>
-                <td><?=$employee['can_swim'] ? 'Yes' : 'No' ?></td>
+                <td><?=statusReadable($employee['canSwim']) ?></td>
             </tr>
         <?php endforeach; ?>
 
