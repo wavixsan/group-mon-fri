@@ -1,6 +1,10 @@
 <?php
 error_reporting(E_ALL);
 
+
+// var_dump(scandir('form'));
+
+
 function createEmployee($age, $weight, $name, $surname, $canSwim = true) 
 {
     return compact('age', 'weight', 'name', 'surname', 'canSwim');

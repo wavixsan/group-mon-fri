@@ -1,10 +1,12 @@
 <?php
 error_reporting(E_ALL);
 
+define('DATA_FILE', 'messages.txt');
 // functions
 
 function createMessage($username, $email, $message)
 {
+    $id = uniqid();
     return compact('username', 'email', 'message');
 }
 
@@ -35,22 +37,61 @@ function isFormValid()
 }
 
 
+// todo: argument for filename
+function saveMessage(array $message)
+{
+    $s = serialize($message);
+    file_put_contents(DATA_FILE, $s . PHP_EOL, FILE_APPEND);
+}
+
+function loadMessages()
+{
+    $messages = file_get_contents(DATA_FILE);
+    $messages = explode(PHP_EOL, $messages);
+    
+    foreach ($messages as $key => $message) {
+        if ($message) {
+            $messages[$key] = unserialize($message);
+            continue;
+        }
+        
+        unset($messages[$key]);
+    }
+    
+    return $messages;
+}
+
+
 // logic
 
 $flashMessage = requestGet('flash');
 
+// todo: delete
+if (requestGet('action') == 'delete') {
+ 
+ 
+ // delete script
+ // redirect + flash message
+ 
+    
+}
+
 if (isRequestPost()) {
     if (isFormValid()) {
         $flashMessage = 'Your message was sent';
-        // $message = createMessage(requestPost('username'), requestPost('email'), requestPost('message'));
         
-        // something todo with $message
-        
+        $message = createMessage(requestPost('username'), requestPost('email'), requestPost('message'));
+        saveMessage($message);
+
         redirect("/form?flash={$flashMessage}");
     } 
     
     $flashMessage = 'Fill the fields';
 }
+
+
+$messages = loadMessages();
+
 
 ?>
 
@@ -73,6 +114,16 @@ if (isRequestPost()) {
         <button>GO</button>
     </form>
     
+    <hr>
+    
+    <?php foreach ($messages as $key => $message) : ?>
+        
+        <i><?=$message['username']?></i><br>
+        <?=$message['message']?>
+        
+        <a href="index.php?action=delete&amp;id=<?=$key?>">Delete</a>
+    <hr>
+    <?php endforeach ?>
     
     
 </body>
