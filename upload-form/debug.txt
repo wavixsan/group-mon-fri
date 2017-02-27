@@ -1,0 +1,8 @@
+Array
+(
+    [name] => tvinfo.ini
+    [type] => application/octet-stream
+    [tmp_name] => /tmp/phpW87jsj
+    [error] => 0
+    [size] => 40
+)
