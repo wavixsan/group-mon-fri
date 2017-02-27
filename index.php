@@ -1,6 +1,10 @@
 <?php
 error_reporting(E_ALL);
 
+file_put_contents('test.txt', 'new text', FILE_APPEND);
+
+
+
     $employee1 = array(
         'age' => 61, 
         'weight' => 75.35, 
