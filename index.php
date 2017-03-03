@@ -1,6 +1,70 @@
 <?php
 error_reporting(E_ALL);
 
+session_start();
+
+var_dump($_SESSION);
+
+echo session_save_path();
+
+// $_SESSION['test_session'] = [1, 2];
+
+
+
+
+
+
+
+
+if (!cookieExists('counter')) {
+    cookieSet('counter', 1);
+} else {
+    $count = cookieGet('counter');
+    $count++;
+    cookieSet('counter', $count); 
+}
+
+
+
+
+
+
+function cookieSet($key, $value, $expire = 86400) 
+{
+    setcookie($key, $value, time() + $expire);
+}
+
+function cookieGet($key)
+{
+    if (cookieExists($key)) {
+        return $_COOKIE[$key];
+    }
+    
+    return null;
+}
+
+function cookieExists($key)
+{
+    return isset($_COOKIE[$key]);
+}
+
+function cookieDelete($key)
+{
+    cookieSet($key, '', -1);
+    
+    if (cookieExists($key)) {
+        unset($_COOKIE[$key]);
+    }
+}
+
+
+
+
+
+
+
+
+
 file_put_contents('test.txt', 'new text', FILE_APPEND);
 
 
