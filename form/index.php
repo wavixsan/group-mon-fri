@@ -1,8 +1,30 @@
 <?php
 error_reporting(E_ALL);
 
+session_start();
+
 define('DATA_FILE', 'messages.txt');
+define('FLASH_KEY', 'flash_message');
 // functions
+
+// todo : определять в какой цвет закрасить сообщение в зависимости от успеха/фейла
+function setFlash($message)
+{
+    $_SESSION[FLASH_KEY] = $message;
+}
+
+function getFlash()
+{
+    if (!isset($_SESSION[FLASH_KEY])) {
+        return null;
+    }
+    
+    $message = $_SESSION[FLASH_KEY];
+    unset($_SESSION[FLASH_KEY]);
+    
+    return $message;
+}
+
 
 function createMessage($username, $email, $message)
 {
@@ -77,16 +99,18 @@ if (requestGet('action') == 'delete') {
 }
 
 if (isRequestPost()) {
+    // todo: добавить проверку капчи, задавать соответствующее значение для сообщения + менять капчу если успех
     if (isFormValid()) {
-        $flashMessage = 'Your message was sent';
         
         $message = createMessage(requestPost('username'), requestPost('email'), requestPost('message'));
         saveMessage($message);
-
-        redirect("/form?flash={$flashMessage}");
+        
+        setFlash('Your message was sent');
+        redirect("/form");
     } 
     
-    $flashMessage = 'Fill the fields';
+    // todo: убрать
+    setFlash('Fill the fields');
 }
 
 
@@ -105,12 +129,14 @@ $messages = loadMessages();
 <body>
     
     <h1>Form</h1>
-    <b><?=$flashMessage ?></b>
+    <b><?=getFlash() ?></b>
     
     <form method="post">
         <input type="name" name="username" value="<?=requestPost('username') ?>"><br>
         <input type="email" name="email" value="<?=requestPost('email') ?>"><br>
         <textarea name="message"><?=requestPost('message') ?></textarea><br>
+        <img src="https://mon-fri-andrii-popov.c9users.io/form/captcha.php"> <br>
+        <input type="text" name="security_number"/><br>
         <button>GO</button>
     </form>
     
