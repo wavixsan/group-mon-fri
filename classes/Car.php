@@ -5,7 +5,7 @@ class Car
     public $brand;
     public $model;
     public $year;
-    private $price;
+    protected $price;
     
     public function __construct($brand, $model, $year, $price)
     {
@@ -34,3 +34,4 @@ class Car
         return number_format($this->price, 2, ', ', ' ');
     }
 }
+
