@@ -1,7 +1,18 @@
 <?php
 error_reporting(E_ALL);
-
 session_start();
+
+spl_autoload_register(function($className) {
+    $filePath = "classes/{$className}.php";
+    
+    if (!file_exists($filePath)) {
+        die("file {$filePath} not found");
+    }
+    
+    require_once($filePath);
+});
+
+$request = new Request($_GET, $_POST);
 
 define('DATA_FILE', 'messages.txt');
 define('FLASH_KEY', 'flash_message');
@@ -38,25 +49,6 @@ function redirect($to)
     die;
 }
 
-function requestPost($key, $default = null)
-{
-    return isset($_POST[$key]) ? $_POST[$key] : $default;
-}
-
-function requestGet($key, $default = null)
-{
-    return isset($_GET[$key]) ? $_GET[$key] : $default;
-}
-
-function isRequestPost()
-{
-    return (bool) $_POST;
-}
-
-function isFormValid()
-{
-    return trim(requestPost('username')) != '' && trim(requestPost('email')) != '' && trim(requestPost('message')) != '';
-}
 
 
 // todo: argument for filename
@@ -86,10 +78,10 @@ function loadMessages()
 
 // logic
 
-$flashMessage = requestGet('flash');
+$flashMessage = $request->get('flash');
 
 // todo: delete
-if (requestGet('action') == 'delete') {
+if ($request->get('action') == 'delete') {
  
  
  // delete script
@@ -98,15 +90,20 @@ if (requestGet('action') == 'delete') {
     
 }
 
-if (isRequestPost()) {
+
+
+
+$form = new ContactForm($request);
+
+if ($request->isPost()) {
     // todo: добавить проверку капчи, задавать соответствующее значение для сообщения + менять капчу если успех
-    if (isFormValid()) {
+    if ($form->isValid()) {
         
-        $message = createMessage(requestPost('username'), requestPost('email'), requestPost('message'));
+        $message = createMessage($form->username, $form->email, $form->message);
         saveMessage($message);
         
         setFlash('Your message was sent');
-        redirect("/form");
+        // redirect("/form");
     } 
     
     // todo: убрать
@@ -132,9 +129,9 @@ $messages = loadMessages();
     <b><?=getFlash() ?></b>
     
     <form method="post">
-        <input type="name" name="username" value="<?=requestPost('username') ?>"><br>
-        <input type="email" name="email" value="<?=requestPost('email') ?>"><br>
-        <textarea name="message"><?=requestPost('message') ?></textarea><br>
+        <input type="name" name="username" value="<?=$form->username ?>"><br>
+        <input type="email" name="email" value="<?=$form->email ?>"><br>
+        <textarea name="message"><?=$form->message ?></textarea><br>
         <img src="https://mon-fri-andrii-popov.c9users.io/form/captcha.php"> <br>
         <input type="text" name="security_number"/><br>
         <button>GO</button>
