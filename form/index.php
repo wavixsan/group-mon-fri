@@ -6,7 +6,7 @@ spl_autoload_register(function($className) {
     $filePath = "classes/{$className}.php";
     
     if (!file_exists($filePath)) {
-        die("file {$filePath} not found");
+        throw new Exception("file {$filePath} not found!!!");
     }
     
     require_once($filePath);
@@ -90,7 +90,12 @@ if ($request->get('action') == 'delete') {
     
 }
 
-
+try {
+    $test = new Test();
+    echo 1;
+} catch(Exception $e) {
+    die("YAY: " . $e->getMessage());
+}
 
 
 $form = new ContactForm($request);
