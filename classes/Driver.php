@@ -2,6 +2,8 @@
 
 class Driver
 {
+    use SomethingAwareTrait;
+    
     public $name;
     
     public function __construct($name)

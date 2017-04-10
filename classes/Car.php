@@ -2,10 +2,14 @@
 
 class Car
 {
+    use SomethingAwareTrait;
+    
     public $brand;
     public $model;
     public $year;
     protected $price;
+    
+    
     
     public function __construct($brand, $model, $year, $price)
     {
